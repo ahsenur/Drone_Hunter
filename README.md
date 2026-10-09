@@ -1,4 +1,6 @@
-# DroneHunter
+# Drone_Hunter_Sistemi (Python tarafi)
+
+Bu klasor repo kokundeki `README.md` ile birlikte okunmalidir. Asagidaki tum komutlar bu klasorden calistirilir.
 
 Cok sensorlu (kamera + akustik + radar) drone tespit ve karar destek prototipi. Tez konusu:
 **cok sensorlu veri fuzyonunun, tek sensore gore kazancini bozulmus kosullarda (dusuk gorus, gurultu,
@@ -44,9 +46,12 @@ Bu bir arastirma prototipidir; saha dogrulamasi yapilmamistir.
 
 ## Testler
 
+Bu klasorden (`Drone_Hunter_Sistemi/`) PowerShell'de:
+
 ```
-PYTHONPATH=src python tests/test_degradation.py
-PYTHONPATH=src python tests/test_tdoa.py
+$env:PYTHONPATH = "src"
+python tests\test_degradation.py
+python tests\test_tdoa.py
 ```
 
 TDOA testi idealize sentetik sinyal kullanir (yansima, ruzgar, mikrofon farki yok); gercek ortamdaki
@@ -55,7 +60,8 @@ dogrulugu gostermez.
 ## Bozulma deneyi (iskelet)
 
 ```
-PYTHONPATH=src python experiments/degradation_eval.py
+$env:PYTHONPATH = "src"
+python experiments\degradation_eval.py
 ```
 
 **Sentetik ve varsayimsal.** `SENSOR_MODEL` tablosundaki sayilar olculmus degildir; uretilen CSV bir performans
@@ -78,6 +84,13 @@ skorunu dusurebilir. Tezde bu, birlestirme kuralinin karsilastirilmasi icin bir 
 ## Calistirma
 
 ```
+cd Drone_Hunter_Sistemi
 pip install -r requirements.txt
 powershell -ExecutionPolicy Bypass -File scripts\run_orchestrator_demo.ps1
+```
+
+Radar baglanti kaybi senaryosunu ROS2 olmadan denemek icin (ayri bir pencerede, orkestratorle birlikte):
+
+```
+python scripts\simulate_radar_log.py --out data\integration\radar_output.log --beat 30 --silence 30 --with-target
 ```

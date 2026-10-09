@@ -1,0 +1,110 @@
+{
+  "profile_path": "config/research/campus_perimeter_profile.json",
+  "radar": {
+    "json_path": null,
+    "text_log_path": "data/integration/radar_output.log",
+    "hyperbolic_baseline_m": 0.42,
+    "delta_to_path_scale": 0.00008,
+    "delta_is_path_difference": false,
+    "recent_limit": 10,
+    "track_ttl_s": 3.0
+  },
+  "vision": {
+    "model_path": "yolov8n.pt",
+    "camera_index": 0,
+    "confidence": 0.4,
+    "frame_skip": 2,
+    "imgsz": 416
+  },
+  "acoustic": {
+    "enabled": true,
+    "poll_interval": 0.8,
+    "track_ttl_s": 1.2
+  },
+  "thermal": {
+    "enabled": false,
+    "camera_index": 1,
+    "hotspot_threshold": 220,
+    "min_area": 80
+  },
+  "stm32": {
+    "enabled": false,
+    "port": "COM3",
+    "baudrate": 115200
+  },
+  "safety": {
+    "defensive_mode_only": true,
+    "jammer_response": "degrade_gracefully"
+  },
+  "display": {
+    "fullscreen": false,
+    "target_height": 920,
+    "sidebar_width": 520,
+    "hologram_enabled": true,
+    "hologram_fullscreen": false,
+    "hologram_width": 1280,
+    "hologram_height": 720
+  },
+  "classification": {
+    "friendly_labels": [
+      "person",
+      "operator",
+      "staff"
+    ],
+    "threat_labels": [
+      "drone",
+      "uav",
+      "quadcopter"
+    ],
+    "operator_zones": [
+      "operator_zone",
+      "safe_operator_zone"
+    ],
+    "forbidden_zones": [
+      "kritik_merkez",
+      "yasak_bolge",
+      "forbidden_zone"
+    ],
+    "friend_threshold": 0.55,
+    "threat_threshold": 0.75,
+    "ambiguity_margin": 0.12
+  },
+  "zones": [
+    {
+      "label": "safe_operator_zone",
+      "x_min": 0.0,
+      "x_max": 0.2,
+      "y_min": 0.55,
+      "y_max": 1.0,
+      "risk_bonus": -0.08,
+      "note": "operator guvenli alan"
+    },
+    {
+      "label": "kritik_merkez",
+      "x_min": 0.35,
+      "x_max": 0.65,
+      "y_min": 0.2,
+      "y_max": 0.8,
+      "risk_bonus": 0.18,
+      "note": "kritik izleme koridoru"
+    },
+    {
+      "label": "yan_cevre",
+      "x_min": 0.0,
+      "x_max": 0.25,
+      "y_min": 0.0,
+      "y_max": 1.0,
+      "risk_bonus": 0.05,
+      "note": "yan yaklaşma koridoru"
+    },
+    {
+      "label": "yan_cevre",
+      "x_min": 0.75,
+      "x_max": 1.0,
+      "y_min": 0.0,
+      "y_max": 1.0,
+      "risk_bonus": 0.05,
+      "note": "yan yaklaşma koridoru"
+    }
+  ]
+}

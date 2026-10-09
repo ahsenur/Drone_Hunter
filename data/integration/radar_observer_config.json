@@ -1,0 +1,12 @@
+{
+  "source": {
+    "json_path": null,
+    "text_log_path": "data/integration/radar_output.log"
+  },
+  "observer": {
+    "poll_interval": 0.5
+  },
+  "output": {
+    "records_dir": "data/integration/records"
+  }
+}

@@ -1,0 +1,14 @@
+.venv/
+venv/
+__pycache__/
+*.pyc
+.env
+*.pt
+*.pth
+*.onnx
+*.bin
+data/integration/records/*.json
+data/raw_audio/
+.idea/
+.vscode/
+savunma_log.csv

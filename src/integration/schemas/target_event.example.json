@@ -1,0 +1,13 @@
+{
+  "source": "radar",
+  "target_detected": true,
+  "target_id": "hedef_1",
+  "angle_deg": 42.5,
+  "distance_m": 18.2,
+  "confidence": 0.87,
+  "threat_level": "medium",
+  "timestamp": 1774723445.699,
+  "metadata": {
+    "note": "Tum algi katmanlari bu veri formatina yaklastirilmalidir."
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "name": "kampus_cevre_profili",
+  "use_case": "kampus_cevre_gozetimi",
+  "environment": "outdoor",
+  "acoustic_weight": 0.8,
+  "radar_weight": 1.0,
+  "vision_weight": 1.15,
+  "alert_threshold": 0.68,
+  "track_threshold": 0.42
+}

@@ -55,6 +55,11 @@ class SensorHealthMonitor:
             return SensorHealth(source, STALE, age, f"{age:.1f} sn heartbeat yok")
         return SensorHealth(source, OK, age)
 
+    def details(self, now: Optional[float] = None) -> Dict[str, SensorHealth]:
+        """snapshot() ile ayni kaynaklar, ama yas ve neden bilgisiyle birlikte (kayit icin)."""
+        sources = set(self._last_ok) | set(self._fault)
+        return {s: self.status(s, now) for s in sorted(sources)}
+
     def snapshot(self, now: Optional[float] = None) -> Dict[str, str]:
         sources = set(self._last_ok) | set(self._fault)
         return {s: self.status(s, now).state for s in sorted(sources)}

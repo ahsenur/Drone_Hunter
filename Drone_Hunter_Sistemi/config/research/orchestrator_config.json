@@ -9,6 +9,10 @@
     "recent_limit": 10,
     "track_ttl_s": 3.0
   },
+  "recording": {
+    "enabled": true,
+    "db_path": "data/records/dronehunter.db"
+  },
   "vision": {
     "model_path": "yolov8n.pt",
     "camera_index": 0,

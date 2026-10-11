@@ -21,6 +21,7 @@ from research_core import (
     ZoneRiskEvaluator,
     load_profile,
 )
+from research_core.run_recorder import RunRecorder
 from research_core.sensor_health import SensorHealthMonitor
 from thermal_engine import ThermalSignatureAnalyzer
 from acoustic_engine.analyzer import AkustikMotor
@@ -58,6 +59,18 @@ class DemoOrchestrator:
             ambiguity_margin=float(classifier_cfg.get("ambiguity_margin", 0.12)),
         )
         self.pipeline = MultiSensorPipeline(profile, classifier=self.friend_foe_classifier)
+
+        # Calisma kaydi (SQLite): olaylar, sensor sagligi, fuzyon karari. Hata verirse sistem kayitsiz devam eder.
+        self.recorder = None
+        recording_cfg = self.config.get("recording", {})
+        if recording_cfg.get("enabled", True):
+            try:
+                self.recorder = RunRecorder(
+                    self._resolve(recording_cfg.get("db_path", "data/records/dronehunter.db")),
+                    label=str(recording_cfg.get("label", "")),
+                )
+            except Exception as exc:
+                print(f"[recorder] kayit baslatilamadi, kayitsiz devam: {exc}")
         self.zone_evaluator = ZoneRiskEvaluator(self.config.get("zones", []))
         self.history_tracker = TargetHistoryTracker()
 
@@ -181,6 +194,19 @@ class DemoOrchestrator:
                     sensor_status=self.health.snapshot(),
                 )
 
+                if self.recorder is not None:
+                    try:
+                        self.recorder.record_tick(
+                            time.time(),
+                            {"radar": radar_event, "vision": vision_event,
+                             "acoustic": acoustic_event, "thermal": thermal_event},
+                            self.health.details(),
+                            result,
+                        )
+                    except Exception as exc:
+                        print(f"[recorder] kayit hatasi, kayit durduruldu: {exc}")
+                        self.recorder = None
+
                 if self.stm32_bridge is not None and result.command.get("target_detected"):
                     try:
                         sent = self.stm32_bridge.send_command(result.command)
@@ -230,6 +256,8 @@ class DemoOrchestrator:
             if self.thermal_cap is not None:
                 self.thermal_cap.release()
             cv2.destroyAllWindows()
+            if self.recorder is not None:
+                self.recorder.close()
             if self.stm32_bridge is not None:
                 self.stm32_bridge.disconnect()
 

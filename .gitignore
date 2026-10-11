@@ -12,3 +12,7 @@ data/raw_audio/
 .idea/
 .vscode/
 savunma_log.csv
+*.db
+*.db-wal
+*.db-shm
+data/records/

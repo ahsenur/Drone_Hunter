@@ -23,7 +23,7 @@ Bu bir arastirma prototipidir; saha dogrulamasi yapilmamistir.
 | RF bozulma modu | Kismen | Tetikleyici 1: radar metninde "ILETISIM KESINTISI" (`Delta>0` etiketi, simulasyonda neredeyse hep aktif, RF olcumu degil). Tetikleyici 2 (yeni): radar heartbeat zaman asimi. Gercek jammer testi yok. |
 | Tehdit skoru, dost/dusman | Calisiyor | Elle ayarlanmis agirliklarla kural tabanli, aciklanabilir. |
 | Termal | Kod var, kapali | Donanim yok. |
-| STM32 | Kopru kodu var, kapali | Karttaki yazilim yalnizca LED yakiyor, komutlari okumuyor. |
+| STM32 | Kopru kodu var, kapali | Kart yazilimi bu repoda yer almiyor. |
 
 ## Tez dogrultusunda yapilan degisiklikler
 
